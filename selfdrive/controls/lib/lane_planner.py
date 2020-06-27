@@ -1,10 +1,8 @@
 from common.numpy_fast import interp
 import numpy as np
-#from selfdrive.kegman_conf import kegman_conf
 from cereal import log
 
-# kegman = kegman_conf()
-CAMERA_OFFSET = 0.04 # float(kegman.conf['cameraOffset'])  # m from center car to camera, Stock is 0.06
+CAMERA_OFFSET = 0.04  # m from center car to camera
 
 def compute_path_pinv(l=50):
   deg = 3
