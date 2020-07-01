@@ -93,7 +93,23 @@ class CarController():
     apply_accel = clip(apply_accel * ACCEL_SCALE, ACCEL_MIN, ACCEL_MAX)
 
     ### Steering Torque
-    new_steer = actuators.steer * SteerLimitParams.STEER_MAX
+    
+    if CS.left_blinker_on or CS.right_blinker_on or CS.left_blinker_flash or CS.right_blinker_flash or self.turning_signal_timer :
+       if CS.v_ego > (100 * 1. / 3.6):   # 100km/h or more
+          new_steer = actuators.steer * SteerLimitParams.STEER_MAX * 0.38
+       elif CS.v_ego > (90 * 1. / 3.6):  # 90km/h ~ 100km/h
+          new_steer = actuators.steer * SteerLimitParams.STEER_MAX * 0.55
+       elif CS.v_ego > (80 * 1. / 3.6):  # 80km/h ~ 90km/h
+          new_steer = actuators.steer * SteerLimitParams.STEER_MAX * 0.55
+       elif CS.v_ego > (70 * 1. / 3.6):  # 70km/h ~ 80km/h
+          new_steer = actuators.steer * SteerLimitParams.STEER_MAX * 0.70
+       elif CS.v_ego > (60 * 1. / 3.6):  # 60km/h ~ 70km/h
+          new_steer = actuators.steer * SteerLimitParams.STEER_MAX * 0.80
+       else:
+          new_steer = actuators.steer * SteerLimitParams.STEER_MAX    
+    else:
+       new_steer = actuators.steer * SteerLimitParams.STEER_MAX 
+    
     apply_steer = apply_std_steer_torque_limits(new_steer, self.apply_steer_last, CS.steer_torque_driver, SteerLimitParams)
     self.steer_rate_limited = new_steer != apply_steer
 
