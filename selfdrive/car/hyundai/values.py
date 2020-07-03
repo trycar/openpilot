@@ -200,7 +200,7 @@ FEATURES = {
 }
 
 DBC = {
-  CAR.AVANTE:  dbc_dic('hyundai_kia_generic'. None),
+  CAR.AVANTE:  dbc_dict('hyundai_kia_generic', None),
   CAR.GENESIS: dbc_dict('hyundai_kia_generic', None),
   CAR.GENESIS_G90: dbc_dict('hyundai_kia_generic', None),
   CAR.GENESIS_G80: dbc_dict('hyundai_kia_generic', None),
